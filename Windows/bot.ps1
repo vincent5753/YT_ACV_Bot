@@ -42,7 +42,7 @@ while(1){
             Write-Host "[INFO] Vid DLed!" -fore Green
         }else{
             Write-Host "[INFO] Vid Not DLed yet!" -fore Cyan
-            # Regex 1
+            # YT Vid Regex 1
             if ($msg -match 'yt:[^\"&?\/\s]{11}') {
                 $ytvid = $response | jq -c .result[$num].message.text | sed 's/\"//g' | awk -F ":" '{print $2}'
                 echo $ytvid
@@ -62,7 +62,7 @@ while(1){
                 echo "MSG not matching patten of yt:vid"
             } 
 
-            # Regex 2
+            # YT Vid Regex 2
             if ($msg -match 'https:\/\/www.youtube.com\/watch\?v=[^\"&?\/\s]{11}') {
                 echo "MSG matched patten of url+vid"
                 $ytvid = $msg | awk -F "=" '{print $2}'
@@ -82,10 +82,30 @@ while(1){
                 echo "MSG not matching patten of 3wyt.com+vid"
             }
 
-            # Regex 3
+            # YT Vid Regex 3
             if ($msg -match 'https:\/\/youtu.be\/[^\"&?\/\s]{11}') {
                 echo "MSG matched patten of url+vid"
                 $ytvid = $msg | awk -F "/" '{print $4}'
+                echo $ytvid
+
+                youtube-dl -F https://www.youtube.com/watch?v=$ytvid
+                bestyt https://www.youtube.com/watch?v=$ytvid
+            if($LASTEXITCODE -eq 0){
+                Write-Host "Everything looks find :)" -fore green
+                Add-Content DLed.list "$msg"
+            }else{
+                Write-Host "Fucked, Retry AFT 10 Secs..." -fore Red
+                Start-Sleep -S 10
+                bestyt https://www.youtube.com/watch?v=$ytvid
+                }  
+            }else{
+                echo "MSG not matching patten of youtu.be+vid"
+            }
+
+            # YT shorts Regex 3
+            if ($msg -match 'https:\/\/youtube.com\/shorts\/[^\"&?\/\s]{11}') {
+                echo "MSG matched patten of url+vid"
+                $ytvid = $msg | awk -F "/" '{print $5}'
                 echo $ytvid
 
                 youtube-dl -F https://www.youtube.com/watch?v=$ytvid
