@@ -102,7 +102,7 @@ while(1){
                 echo "MSG not matching patten of youtu.be+vid"
             }
 
-            # YT shorts Regex 3
+            # YT shorts Regex 1
             if ($msg -match 'https:\/\/youtube.com\/shorts\/[^\"&?\/\s]{11}') {
                 echo "MSG matched patten of url+vid"
                 $ytvid = $msg | awk -F "/" '{print $5}'
@@ -122,6 +122,26 @@ while(1){
                 echo "MSG not matching patten of youtu.be+vid"
             }
 
+            # YT shorts Regex 2
+            if ($msg -match 'https:\/\/www.youtube.com\/shorts\/[^\"&?\/\s]{11}') {
+                echo "MSG matched patten of url+vid"
+                $ytvid = $msg | awk -F "/" '{print $5}'
+                echo $ytvid
+
+                youtube-dl -F https://www.youtube.com/watch?v=$ytvid
+                bestyt https://www.youtube.com/watch?v=$ytvid
+            if($LASTEXITCODE -eq 0){
+                Write-Host "Everything looks find :)" -fore green
+                Add-Content DLed.list "$msg"
+            }else{
+                Write-Host "Fucked, Retry AFT 10 Secs..." -fore Red
+                Start-Sleep -S 10
+                bestyt https://www.youtube.com/watch?v=$ytvid
+                }  
+            }else{
+                echo "MSG not matching patten of youtu.be+vid"
+            }
+        }
         }
     }
     Write-Host "<Sleeping...>" -fore  Gray
