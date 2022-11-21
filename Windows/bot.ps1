@@ -143,7 +143,7 @@ while(1){
             }
         }
         }
+        Write-Host "[INFO] Sleeping" -fore Cyan
+        Start-Sleep -S 15
     }
-    Write-Host "<Sleeping...>" -fore  Gray
-    Start-Sleep -S 10
 }
