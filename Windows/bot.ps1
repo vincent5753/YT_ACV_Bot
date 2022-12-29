@@ -146,4 +146,3 @@ while(1){
         Write-Host "[INFO] Sleeping" -fore Cyan
         Start-Sleep -S 15
     }
-}
