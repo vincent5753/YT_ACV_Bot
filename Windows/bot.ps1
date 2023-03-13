@@ -47,7 +47,7 @@ while(1){
                 $ytvid = $response | jq -c .result[$num].message.text | sed 's/\"//g' | awk -F ":" '{print $2}'
                 echo $ytvid
 
-                youtube-dl -F https://www.youtube.com/watch?v=$ytvid
+                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore Green
@@ -68,7 +68,7 @@ while(1){
                 $ytvid = $msg | awk -F "=" '{print $2}'
                 echo $ytvid
 
-                youtube-dl -F https://www.youtube.com/watch?v=$ytvid
+                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore Green
@@ -88,7 +88,7 @@ while(1){
                 $ytvid = $msg | awk -F "/" '{print $4}'
                 echo $ytvid
 
-                youtube-dl -F https://www.youtube.com/watch?v=$ytvid
+                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore green
@@ -108,7 +108,7 @@ while(1){
                 $ytvid = $msg | awk -F "/" '{print $5}'
                 echo $ytvid
 
-                youtube-dl -F https://www.youtube.com/watch?v=$ytvid
+                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore green
@@ -128,7 +128,7 @@ while(1){
                 $ytvid = $msg | awk -F "/" '{print $5}'
                 echo $ytvid
 
-                youtube-dl -F https://www.youtube.com/watch?v=$ytvid
+                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore green
