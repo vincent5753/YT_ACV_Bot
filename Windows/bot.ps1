@@ -1,5 +1,11 @@
 . .\Credential.ps1
 
+function bestyt($url) {
+	echo $url
+	yt-dlp -F $url
+    yt-dlp -f bestvideo+bestaudio $url --all-subs --write-sub --embed-sub --sub-format best --external-downloader aria2c --external-downloader-args "-x 16 -k 1M"
+}
+
 $curdir = (Get-Item .).FullName
 If (Test-Path -Path $curdir\DLed.list ) {
     $workdir = $curdir
@@ -42,19 +48,18 @@ while(1){
             Write-Host "[INFO] Vid DLed!" -fore Green
         }else{
             Write-Host "[INFO] Vid Not DLed yet!" -fore Cyan
+            
             # YT Vid Regex 1
             if ($msg -match 'yt:[^\"&?\/\s]{11}') {
                 $ytvid = $response | jq -c .result[$num].message.text | sed 's/\"//g' | awk -F ":" '{print $2}'
                 echo $ytvid
-
-                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore Green
                 Add-Content DLed.list "$msg"
                 #echo "$msg" >> DLed.list
             }else{
-                Write-Host "Fucked, Retry AFT 10 Secs..." -fore Red
+                Write-Host "Fxxked, Retry AFT 10 Secs..." -fore Red
                 Start-Sleep -S 10
                 bestyt https://www.youtube.com/watch?v=$ytvid
                 }
@@ -67,14 +72,12 @@ while(1){
                 echo "MSG matched patten of url+vid"
                 $ytvid = $msg | awk -F "=" '{print $2}'
                 echo $ytvid
-
-                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore Green
                 Add-Content DLed.list "$msg"
             }else{
-                Write-Host "Fucked, Retry AFT 10 Secs..." -fore Red
+                Write-Host "Fxxked, Retry AFT 10 Secs..." -fore Red
                 Start-Sleep -S 10
                 bestyt https://www.youtube.com/watch?v=$ytvid
                 }  
@@ -87,14 +90,12 @@ while(1){
                 echo "MSG matched patten of url+vid"
                 $ytvid = $msg | awk -F "/" '{print $4}'
                 echo $ytvid
-
-                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore green
                 Add-Content DLed.list "$msg"
             }else{
-                Write-Host "Fucked, Retry AFT 10 Secs..." -fore Red
+                Write-Host "Fxxked, Retry AFT 10 Secs..." -fore Red
                 Start-Sleep -S 10
                 bestyt https://www.youtube.com/watch?v=$ytvid
                 }  
@@ -107,14 +108,12 @@ while(1){
                 echo "MSG matched patten of url+vid"
                 $ytvid = $msg | awk -F "/" '{print $5}'
                 echo $ytvid
-
-                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore green
                 Add-Content DLed.list "$msg"
             }else{
-                Write-Host "Fucked, Retry AFT 10 Secs..." -fore Red
+                Write-Host "Fxxked, Retry AFT 10 Secs..." -fore Red
                 Start-Sleep -S 10
                 bestyt https://www.youtube.com/watch?v=$ytvid
                 }  
@@ -127,14 +126,12 @@ while(1){
                 echo "MSG matched patten of url+vid"
                 $ytvid = $msg | awk -F "/" '{print $5}'
                 echo $ytvid
-
-                yt-dlp -F https://www.youtube.com/watch?v=$ytvid
                 bestyt https://www.youtube.com/watch?v=$ytvid
             if($LASTEXITCODE -eq 0){
                 Write-Host "Everything looks find :)" -fore green
                 Add-Content DLed.list "$msg"
             }else{
-                Write-Host "Fucked, Retry AFT 10 Secs..." -fore Red
+                Write-Host "Fxxked, Retry AFT 10 Secs..." -fore Red
                 Start-Sleep -S 10
                 bestyt https://www.youtube.com/watch?v=$ytvid
                 }  
