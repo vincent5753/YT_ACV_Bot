@@ -11,4 +11,4 @@ choco install -y jq sed awk
 ```
 
 ## TDL
-Classification Function
+Classification Function by channel name
